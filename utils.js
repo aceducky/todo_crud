@@ -6,8 +6,7 @@ export const parseBody = (req) =>
       try {
         resolve(JSON.parse(body));
       } catch (err) {
-        console.log(err);
-        reject(new Error("Invalid JSON"));
+        reject(new Error("Invalid Json"));
       }
     });
   });

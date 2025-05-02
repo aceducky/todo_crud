@@ -8,19 +8,17 @@ import {
   sendJsonNoTodosFound,
 } from "./utils.js";
 
-
 const server = http.createServer(async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  
+
   const { method, url } = req;
   const normalizedUrl = url === "/" ? url : url.replace(/\/+$/, "");
-  
+
   if (normalizedUrl === "/") {
-  
     if (method !== "GET") sendJsonMethodNotAllowed(res);
-  
+
     switch (method) {
       case "GET":
         res.writeHead(200, { "Content-Type": "text/html" });
@@ -92,18 +90,14 @@ const server = http.createServer(async (req, res) => {
         `);
         return;
     }
-  } 
-  else if (normalizedUrl === "/todos") {
-
+  } else if (normalizedUrl === "/todos") {
     if (method !== "GET") sendJsonMethodNotAllowed(res);
 
     switch (method) {
       case "GET":
         return sendJson(res, 200, todos);
     }
-  } 
-  else if (normalizedUrl === "/todo") {
-
+  } else if (normalizedUrl === "/todo") {
     if (method !== "GET") sendJsonMethodNotAllowed(res);
 
     switch (method) {
@@ -115,11 +109,9 @@ const server = http.createServer(async (req, res) => {
         const randomTodo = todos[Math.floor(Math.random() * todos.length)];
         return sendJson(res, 200, randomTodo);
     }
-  } 
-  else if (normalizedUrl === "/todo/upload") {
-
+  } else if (normalizedUrl === "/todo/upload") {
     if (method !== "POST") sendJsonMethodNotAllowed(res);
-    
+
     switch (method) {
       case "POST":
         let parsedTodo;
@@ -146,14 +138,12 @@ const server = http.createServer(async (req, res) => {
         todos.push(new_todo);
         return sendJson(res, 200, new_todo);
     }
-  } 
-  else if (
+  } else if (
     /^\/todo\/([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/
       .test(
         normalizedUrl,
       )
   ) {
-
     if (method !== "GET" && method !== "PATCH" && method !== "DELETE") {
       sendJsonMethodNotAllowed(res);
     }
@@ -176,7 +166,7 @@ const server = http.createServer(async (req, res) => {
         try {
           parsedTodo = await parseBody(req);
         } catch (err) {
-          return sendJson(res, 400, err);
+          return sendJson(res, 400, { error: err.message });
         }
 
         if (!parsedTodo.title && !parsedTodo.description) {
@@ -199,8 +189,7 @@ const server = http.createServer(async (req, res) => {
         const removed_todo = todos.splice(todoIndex, 1);
         return sendJson(res, 200, removed_todo);
     }
-  } 
-  else {
+  } else {
     return sendJson(res, 404, { error: "Route not found" });
   }
 });

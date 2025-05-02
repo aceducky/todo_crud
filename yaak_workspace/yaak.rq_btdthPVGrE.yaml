@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_btdthPVGrE
+createdAt: 2025-05-02T16:06:18.138272900
+updatedAt: 2025-05-02T16:06:36.511729800
+workspaceId: wk_BxHdt3CoMT
+folderId: fl_M7s8ZuFpna
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      title": "changed title"
+    }
+bodyType: application/json
+description: ""
+headers:
+  - enabled: true
+    name: Content-Type
+    value: application/json
+    id: T97cd8JKST
+method: PATCH
+name: ""
+sortPriority: 6000.001
+url: http://localhost:3000/todo/3f73a015-971e-4167-a35c-484da4cf47a2
+urlParameters: []
