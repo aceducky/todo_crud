@@ -7,12 +7,10 @@ import {
   sendJsonMethodNotAllowed,
   sendJsonNoTodosFound,
 } from "./utils.js";
-
 const server = http.createServer(async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
   const { method, url } = req;
   const normalizedUrl = url === "/" ? url : url.replace(/\/+$/, "");
   if (normalizedUrl === "/") {
@@ -47,14 +45,12 @@ const server = http.createServer(async (req, res) => {
     <ul>
       <li><strong>Response:</strong> <code>200 OK</code> with JSON array of todo objects.</li>
     </ul>
-
     <h2>GET /todo</h2>
     <p>Retrieve a random todo.</p>
     <ul>
       <li><strong>Response:</strong> <code>200 OK</code> with a single todo object.</li>
       <li><strong>Error:</strong> <code>404 Not Found</code> if no todos exist.</li>
     </ul>
-
     <h2>POST /todo/upload</h2>
     <p>Create a new todo.</p>
     <ul>
@@ -62,7 +58,6 @@ const server = http.createServer(async (req, res) => {
       <li><strong>Response:</strong> <code>200 OK</code> with confirmation message and the created todo object.</li>
       <li><strong>Error:</strong> <code>400 Bad Request</code> if title or description is missing or invalid.</li>
     </ul>
-
     <h2>GET /todo/:id</h2>
     <p>Retrieve a specific todo by its UUID.</p>
     <ul>
@@ -70,7 +65,6 @@ const server = http.createServer(async (req, res) => {
       <li><strong>Response:</strong> <code>200 OK</code> with the requested todo object.</li>
       <li><strong>Error:</strong> <code>404 Not Found</code> if the todo does not exist.</li>
     </ul>
-
     <h2>PATCH /todo/:id</h2>
     <p>Update an existing todo by its UUID.</p>
     <ul>
@@ -80,7 +74,6 @@ const server = http.createServer(async (req, res) => {
       <li><strong>Error:</strong> <code>400 Bad Request</code> if neither title nor description is provided.</li>
       <li><strong>Error:</strong> <code>404 Not Found</code> if the todo does not exist.</li>
     </ul>
-
     <h2>DELETE /todo/:id</h2>
     <p>Delete a todo by its UUID.</p>
     <ul>
@@ -88,7 +81,6 @@ const server = http.createServer(async (req, res) => {
       <li><strong>Response:</strong> <code>200 OK</code> with the deleted todo object.</li>
       <li><strong>Error:</strong> <code>404 Not Found</code> if the todo does not exist.</li>
     </ul>
-
   </body>
 </html>
         `);
@@ -132,15 +124,17 @@ const server = http.createServer(async (req, res) => {
           description: parsedTodo.description,
         };
         todos.push(new_todo);
-        return sendJson(res, 200, { message: "Success", data: new_todo });
+        return sendJson(res, 200, new_todo);
     }
   } else if (
-    /^\/todo\/([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/.test(
-      normalizedUrl
-    )
+    /^\/todo\/([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/
+      .test(
+        normalizedUrl,
+      )
   ) {
-    if (method !== "GET" && method !== "PATCH" && method !== "DELETE")
+    if (method !== "GET" && method !== "PATCH" && method !== "DELETE") {
       sendJsonMethodNotAllowed(res);
+    }
     const parsedTodoId = normalizedUrl.slice(6);
     const todoIndex = todos.findIndex((t) => t.id === parsedTodoId);
     if (todoIndex === -1) {
@@ -160,7 +154,8 @@ const server = http.createServer(async (req, res) => {
         }
         if (!parsedTodo.title && !parsedTodo.description) {
           return sendJson(res, 400, {
-            error: `At least one of title or description must be provided for PATCH. Recieved: ${parsedTodo}`,
+            error:
+              `At least one of title or description must be provided for PATCH. Recieved: ${parsedTodo}`,
           });
         }
         if (parsedTodo.title) {
@@ -178,7 +173,6 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 404, { error: "Route not found" });
   }
 });
-
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);
