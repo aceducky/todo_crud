@@ -1,0 +1,22 @@
+type: http_request
+model: http_request
+id: rq_ctcrt2VuBt
+createdAt: 2025-05-01T09:06:32.191867500
+updatedAt: 2025-05-02T11:20:23.247645300
+workspaceId: wk_BxHdt3CoMT
+folderId: fl_M7s8ZuFpna
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: null
+method: GET
+name: ''
+sortPriority: 3000.0
+url: http://localhost:3000/todo/3f73a015-971e-4167-a35c-484da4cf47a2
+urlParameters: []

@@ -1,0 +1,27 @@
+type: http_request
+model: http_request
+id: rq_npTtnNE9fR
+createdAt: 2025-05-01T09:06:56.397766100
+updatedAt: 2025-05-02T11:20:23.249799900
+workspaceId: wk_BxHdt3CoMT
+folderId: fl_M7s8ZuFpna
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "title": "title 1",
+      "description": "description 1"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: dGFz3fNCHY
+method: POST
+name: ''
+sortPriority: 4000.0
+url: http://localhost:3000/todo/upload
+urlParameters: []
