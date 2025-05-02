@@ -55,7 +55,7 @@ const server = http.createServer(async (req, res) => {
     <p>Create a new todo.</p>
     <ul>
       <li><strong>Request Body:</strong> JSON with <code>title</code> (string) and <code>description</code> (string).</li>
-      <li><strong>Response:</strong> <code>200 OK</code> with confirmation message and the created todo object.</li>
+      <li><strong>Response:</strong> <code>200 OK</code> with the created todo object.</li>
       <li><strong>Error:</strong> <code>400 Bad Request</code> if title or description is missing or invalid.</li>
     </ul>
     <h2>GET /todo/:id</h2>
