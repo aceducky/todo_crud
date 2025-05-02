@@ -13,7 +13,7 @@ export const parseBody = (req) =>
   });
 
 export const sendJson = (res, httpCode, data) => {
-  res.writeHeader(httpCode, { "content-type": "application/json" });
+  res.writeHead(httpCode, { "content-type": "application/json" });
   res.end(JSON.stringify(data));
 };
 
