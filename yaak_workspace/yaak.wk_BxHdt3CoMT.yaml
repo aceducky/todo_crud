@@ -1,0 +1,10 @@
+type: workspace
+model: workspace
+id: wk_BxHdt3CoMT
+createdAt: 2025-05-01T09:04:41.585083500
+updatedAt: 2025-05-02T11:50:11
+name: todo_crud
+description: ''
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0
